@@ -56,6 +56,11 @@ public abstract class ParentActivity extends AppCompatActivity implements View.O
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    // Toast
+    protected void $toast(int resId) {
+        Toast.makeText(this, resId, Toast.LENGTH_SHORT).show();
+    }
+
     // startActivity
     protected void $startActivity(Class<?> cls) {
         $startActivity(cls, null);
@@ -68,6 +73,20 @@ public abstract class ParentActivity extends AppCompatActivity implements View.O
             intent.putExtras(bundle);
         }
         startActivity(intent);
+    }
+
+    // startActivityForResult
+    protected void $startActivityForResult(Class<?> cls, int requestCode) {
+        $startActivityForResult(cls, null, requestCode);
+    }
+
+    // startActivityForResult
+    protected void $startActivityForResult(Class<?> cls, Bundle bundle, int requestCode) {
+        Intent intent = new Intent(this, cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
     }
 
     // getIntent
@@ -84,14 +103,31 @@ public abstract class ParentActivity extends AppCompatActivity implements View.O
         return (T) findViewById(resId);
     }
 
+    /**
+     * 设置ContentView
+     * @return
+     */
     protected abstract int getLayoutId();
 
+    /**
+     * 初始化View
+     */
     protected abstract void initView();
 
+    /**
+     * add Listener
+     */
     protected abstract void setListener();
 
+    /**
+     * 初始化数据
+     */
     protected abstract void initData();
 
+    /**
+     * view点击
+     * @param v
+     */
     public abstract void widgetClick(View v);
 
     private long lastClick = 0;
